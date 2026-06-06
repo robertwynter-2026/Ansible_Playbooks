@@ -1,0 +1,33 @@
+---
+# AWS Infrastructure Connectivity & Specs
+aws_region: "us-east-1"
+instance_type: "t3.micro"
+ami_id: "ami-0c7217cdde317cfec"  # Example Ubuntu 22.04 LTS AMI. Change as needed.
+key_name: "my-aws-ssh-key"      # Your existing AWS SSH key pair name
+security_group: "default"       # Security group name or ID (e.g., sg-xxxxxxxx)
+subnet_id: "subnet-xxxxxx"      # Your Target VPC Subnet ID
+
+# Tagging Metadata
+env_tag: "Production"
+project_tag: "BulkProvisioning"
+
+# The List of 17 Specific Hostnames to Create
+target_vms:
+  - "nexus"
+  - "jumphost"
+  - "k8s-controller-0"
+  - "k8s-controller-1"
+  - "k8s-controller-2"
+  - "k8s-worker-0"
+  - "k8s-worker-1"
+  - "k8s-worker-2"
+  - "k8s-worker-3"
+  - "k8s-worker-4"
+  - "k8s-worker-5"
+  - "k8s-worker-6"
+  - "idm-0"
+  - "idm-1"
+  - "idm-2"
+  - "haproxy-0"
+  - "haproxy-1"
+

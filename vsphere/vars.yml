@@ -1,0 +1,35 @@
+---
+# vCenter Connectivity Info
+vsphere_vcenter: "vcenter.local"
+vsphere_username: "administrator@vsphere.local"
+vsphere_password: "MySecurePassword123!" # Use Ansible Vault to encrypt this in production
+vsphere_validate_certs: false
+
+# Infrastructure Target Details
+vsphere_datacenter: "Datacenter1"
+vsphere_cluster: "Cluster1"
+vsphere_datastore: "vsanDatastore"
+vsphere_network: "VM Network"
+vsphere_template: "ubuntu-22.04-template" # Name of your existing VM template
+vsphere_folder: "/Discover VMs"            # Target folder in vCenter inventory
+
+# The List of 17 Specific Hostnames to Create
+target_vms:
+  - "nexus"
+  - "jumphost"
+  - "k8s-controller-0"
+  - "k8s-controller-1"
+  - "k8s-controller-2"
+  - "k8s-worker-0"
+  - "k8s-worker-1"
+  - "k8s-worker-2"
+  - "k8s-worker-3"
+  - "k8s-worker-4"
+  - "k8s-worker-5"
+  - "k8s-worker-6"
+  - "idm-0"
+  - "idm-1"
+  - "idm-2"
+  - "haproxy-0"
+  - "haproxy-1"
+
