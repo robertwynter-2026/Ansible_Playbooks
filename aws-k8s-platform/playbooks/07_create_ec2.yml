@@ -1,0 +1,29 @@
+---
+- name: Create EC2 Instances
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - ../vars/vm_definitions.yml
+
+  tasks:
+
+    - name: Launch instances
+      amazon.aws.ec2_instance:
+        name: "{{ item.name }}"
+        instance_type: "{{ item.instance_type }}"
+        image_id: "{{ ubuntu_ami }}"
+        region: "{{ aws_region }}"
+        key_name: "{{ key_name }}"
+        vpc_subnet_id: "{{ private_subnet.subnet.id }}"
+        private_ip_address: "{{ item.private_ip }}"
+        security_group: k8s-sg
+        wait: true
+
+        tags:
+          Name: "{{ item.name }}"
+          Role: "{{ item.role }}"
+          Environment: "{{ environment }}"
+          Project: "{{ project_name }}"
+
+      loop: "{{ instances }}"

@@ -1,0 +1,12 @@
+---
+- name: Install IDM
+  hosts: idm
+  become: true
+
+  tasks:
+
+    - name: Install base packages
+      apt:
+        name:
+          - freeipa-server
+        state: present

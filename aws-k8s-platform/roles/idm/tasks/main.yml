@@ -1,0 +1,12 @@
+---
+- name: Install IDM packages
+  apt:
+    name:
+      - freeipa-server
+      - bind9
+    state: present
+
+- name: Open firewall ports (if used)
+  ufw:
+    rule: allow
+    port: "389"

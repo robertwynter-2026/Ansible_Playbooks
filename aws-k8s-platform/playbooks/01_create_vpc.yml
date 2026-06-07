@@ -1,0 +1,20 @@
+---
+- name: Create VPC
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - ../vars/aws.yml
+    - ../vars/networking.yml
+
+  tasks:
+
+    - name: Create VPC
+      amazon.aws.ec2_vpc_net:
+        name: "{{ project_name }}-vpc"
+        cidr_block: "{{ vpc_cidr }}"
+        region: "{{ aws_region }}"
+        tags:
+          Name: "{{ project_name }}-vpc"
+          Environment: "{{ environment }}"
+      register: vpc

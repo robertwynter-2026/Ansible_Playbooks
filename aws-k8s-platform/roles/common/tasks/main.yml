@@ -1,0 +1,19 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install base packages
+  apt:
+    name:
+      - curl
+      - vim
+      - git
+      - net-tools
+      - ca-certificates
+      - unzip
+    state: present
+
+- name: Set timezone
+  timezone:
+    name: UTC

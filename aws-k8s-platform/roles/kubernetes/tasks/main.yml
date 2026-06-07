@@ -1,0 +1,23 @@
+---
+- name: Load kernel modules
+  modprobe:
+    name: br_netfilter
+
+- name: Set sysctl params for Kubernetes
+  sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Install container runtime dependencies
+  apt:
+    name:
+      - containerd
+    state: present
+
+- name: Enable containerd
+  systemd:
+    name: containerd
+    enabled: yes
+    state: started

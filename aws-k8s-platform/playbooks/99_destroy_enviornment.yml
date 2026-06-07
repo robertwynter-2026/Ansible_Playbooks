@@ -1,0 +1,75 @@
+---
+- name: Destroy AWS Kubernetes Lab Environment
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - ../vars/aws.yml
+    - ../vars/networking.yml
+
+  tasks:
+
+    ###################################
+    # 1. DELETE EC2 INSTANCES
+    ###################################
+
+    - name: Find EC2 instances by tags
+      amazon.aws.ec2_instance_info:
+        region: "{{ aws_region }}"
+        filters:
+          "tag:Project": "{{ project_name }}"
+          "tag:Environment": "{{ environment }}"
+      register: ec2_instances
+
+    - name: Terminate EC2 instances
+      amazon.aws.ec2_instance:
+        region: "{{ aws_region }}"
+        instance_ids: "{{ ec2_instances.instances | map(attribute='instance_id') | list }}"
+        state: absent
+      when: ec2_instances.instances | length > 0
+
+
+    ###################################
+    # 2. DELETE NAT GATEWAYS
+    ###################################
+
+    - name: Find NAT Gateways
+      amazon.aws.ec2_vpc_nat_gateway_info:
+        region: "{{ aws_region }}"
+      register: nat_gws
+
+    - name: Delete NAT Gateways
+      amazon.aws.ec2_vpc_nat_gateway:
+        region: "{{ aws_region }}"
+        nat_gateway_id: "{{ item.nat_gateway_id }}"
+        state: absent
+      loop: "{{ nat_gws.result }}"
+      when: item.state == "available"
+
+
+    ###################################
+    # 3. DELETE SECURITY GROUPS
+    ###################################
+
+    - name: Delete Security Groups
+      amazon.aws.ec2_security_group:
+        region: "{{ aws_region }}"
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - k8s
+        - haproxy
+        - idm
+        - nexus
+
+
+    ###################################
+    # 4. DELETE VPC RESOURCES (FINAL STEP)
+    ###################################
+
+    - name: Delete VPC
+      amazon.aws.ec2_vpc_net:
+        region: "{{ aws_region }}"
+        name: "{{ vpc.name }}"
+        cidr_block: "{{ vpc.cidr }}"
+        state: absent

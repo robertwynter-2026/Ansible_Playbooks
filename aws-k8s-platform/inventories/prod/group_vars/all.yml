@@ -1,0 +1,110 @@
+---
+# =========================
+# Environment Identity
+# =========================
+environment: prod
+project_name: aws-k8s-platform
+
+# =========================
+# AWS Configuration
+# =========================
+aws_region: us-east-1
+
+availability_zones:
+  - us-east-1a
+  - us-east-1b
+  - us-east-1c
+
+# Tags applied everywhere
+common_tags:
+  Environment: prod
+  Project: aws-k8s-platform
+  ManagedBy: ansible
+  CostCenter: platform-lab
+
+# =========================
+# SSH Access
+# =========================
+ansible_user: ubuntu
+ansible_ssh_private_key_file: ~/.ssh/my-aws-key.pem
+ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+# =========================
+# AMI Base Image
+# =========================
+ubuntu_ami: ami-0c7217cdde317cfec
+
+# =========================
+# Networking (Prod-grade intent)
+# =========================
+vpc_cidr: 10.0.0.0/16
+
+public_subnet_cidrs:
+  - 10.0.1.0/24
+  - 10.0.3.0/24
+  - 10.0.5.0/24
+
+private_subnet_cidrs:
+  - 10.0.2.0/24
+  - 10.0.4.0/24
+  - 10.0.6.0/24
+
+enable_nat_gateway: true
+
+# =========================
+# Kubernetes Settings
+# =========================
+kubernetes_version: "1.32"
+
+pod_network_cidr: 10.244.0.0/16
+service_network_cidr: 10.96.0.0/12
+
+cluster_name: prod-k8s
+
+# =========================
+# Instance Sizing (IMPORTANT difference vs dev)
+# =========================
+
+jumphost_instance_type: t3.micro
+
+haproxy_instance_type: t3.micro
+
+controller_instance_type: t3.medium
+
+worker_instance_type: t3.large
+
+idm_instance_type: t3.medium
+
+nexus_instance_type: t3.large
+
+# =========================
+# Storage Defaults
+# =========================
+default_volume_type: gp3
+default_volume_size: 80
+
+nexus_volume_size: 150
+
+idm_volume_size: 80
+
+# =========================
+# Security Hardening Flags
+# =========================
+enable_public_api_access: false
+
+restrict_ssh_to_bastion_only: true
+
+disable_password_auth: true
+
+# =========================
+# DNS / Internal Domain
+# =========================
+base_domain: prod.lab.local
+
+cluster_dns_ip: 10.96.0.10
+
+# =========================
+# Observability (future-proofing)
+# =========================
+enable_monitoring: true
+enable_logging: true

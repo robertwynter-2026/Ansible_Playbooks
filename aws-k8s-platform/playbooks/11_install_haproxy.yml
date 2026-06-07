@@ -1,0 +1,11 @@
+---
+- name: Install HAProxy
+  hosts: haproxy
+  become: true
+
+  tasks:
+
+    - name: Install package
+      apt:
+        name: haproxy
+        state: present

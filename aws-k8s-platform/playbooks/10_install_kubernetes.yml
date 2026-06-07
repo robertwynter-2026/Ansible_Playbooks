@@ -1,0 +1,14 @@
+---
+- name: Install Kubernetes
+  hosts: k8s_controllers:k8s_workers
+  become: true
+
+  tasks:
+
+    - name: Install dependencies
+      apt:
+        name:
+          - docker.io
+          - apt-transport-https
+          - curl
+        update_cache: true

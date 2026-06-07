@@ -1,0 +1,13 @@
+---
+- name: Configure Jumphost
+  hosts: jumphost
+  become: true
+
+  tasks:
+
+    - name: Base packages
+      apt:
+        name:
+          - curl
+          - net-tools
+        update_cache: true

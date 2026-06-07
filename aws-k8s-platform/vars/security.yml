@@ -1,0 +1,131 @@
+---
+security_groups:
+
+  k8s:
+    description: Kubernetes cluster security group
+    rules:
+      ingress:
+        - name: ssh
+          port: 22
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+        - name: kube-api
+          port: 6443
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+        - name: kubelet
+          port: 10250
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+      egress:
+        - name: all-out
+          protocol: "-1"
+          cidr: 0.0.0.0/0
+
+
+  haproxy:
+    description: Load balancer security group
+    rules:
+      ingress:
+        - name: kube-api-public
+          port: 6443
+          protocol: tcp
+          cidr: 0.0.0.0/0
+
+        - name: ssh
+          port: 22
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+      egress:
+        - name: all-out
+          protocol: "-1"
+          cidr: 0.0.0.0/0
+
+
+  nexus:
+    description: Nexus repository security group
+    rules:
+      ingress:
+        - name: nexus-ui
+          port: 8081
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+      egress:
+        - name: all-out
+          protocol: "-1"
+          cidr: 0.0.0.0/0
+
+
+  idm:
+    description: Identity management security group
+    rules:
+      ingress:
+        - name: ldap
+          port: 389
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+        - name: ldaps
+          port: 636
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+        - name: http
+          port: 80
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+        - name: https
+          port: 443
+          protocol: tcp
+          cidr: 10.0.0.0/16
+
+      egress:
+        - name: all-out
+          protocol: "-1"
+          cidr: 0.0.0.0/0
+
+
+access_matrix:
+
+  jumphost:
+    can_access:
+      - 10.0.0.0/16
+
+  k8s_nodes:
+    can_access:
+      - 10.0.0.0/16
+
+  internal_services:
+    can_access:
+      - 10.0.0.0/16
+
+
+ssh:
+  user: ubuntu
+  key_name: my-aws-ssh-key
+  disable_password_auth: true
+  allow_root_login: false
+
+
+exposed_services:
+
+  haproxy:
+    ports:
+      - 6443
+
+  nexus:
+    ports:
+      - 8081
+
+  idm:
+    ports:
+      - 389
+      - 636
+      - 80
+      - 443

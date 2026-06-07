@@ -1,0 +1,87 @@
+instances:
+
+  - name: nexus
+    role: nexus
+    private_ip: 10.0.2.50
+    instance_type: t3.large
+
+  - name: jumphost
+    role: jumphost
+    private_ip: 10.0.1.10
+    instance_type: t3.micro
+    public_ip: true
+  
+  - name: k8s-controller-0
+    role: controller
+    private_ip: 10.0.2.10
+    instance_type: t3.medium
+
+  - name: k8s-controller-1
+    role: controller
+    private_ip: 10.0.2.11
+    instance_type: t3.medium
+
+  - name: k8s-controller-2
+    role: controller
+    private_ip: 10.0.2.12
+    instance_type: t3.medium
+
+  - name: k8s-worker-0
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium
+
+  - name: k8s-worker-1
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium
+  
+  - name: k8s-worker-2
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium
+
+  - name: k8s-worker-3
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium
+
+  - name: k8s-worker-4
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium
+
+  - name: k8s-worker-5
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium
+
+  - name: k8s-worker-6
+    role: worker
+    private_ip: 10.0.2.20
+    instance_type: t3.medium  
+
+  - name: idm-0
+    role: idm
+    private_ip: 10.0.2.40
+    instance_type: t3.medium
+
+  - name: idm-1
+    role: idm
+    private_ip: 10.0.2.40
+    instance_type: t3.medium
+
+  - name: idm-2
+    role: idm
+    private_ip: 10.0.2.40
+    instance_type: t3.medium    
+
+  - name: haproxy-0
+    role: haproxy
+    private_ip: 10.0.2.30
+    instance_type: t3.micro
+
+  - name: haproxy-1
+    role: haproxy
+    private_ip: 10.0.2.31
+    instance_type: t3.micro
