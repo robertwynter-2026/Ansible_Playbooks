@@ -1,0 +1,6 @@
+- name: Provision VMs in vSphere
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - vsphere_vm

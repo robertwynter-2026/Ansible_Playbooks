@@ -1,0 +1,12 @@
+---
+- import_playbook: playbooks/01-create-network.yml
+
+- import_playbook: playbooks/02-create-folders.yml
+
+- import_playbook: playbooks/03-create-resource-pools.yml
+
+- import_playbook: playbooks/04-provision-vms.yml
+
+- import_playbook: playbooks/05-configure-networking.yml
+
+- import_playbook: playbooks/06-validate.yml

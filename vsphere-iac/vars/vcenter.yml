@@ -1,0 +1,7 @@
+vcenter_hostname: vcsa.lab.local
+vcenter_datacenter: Datacenter
+vcenter_cluster: Compute-Cluster
+vcenter_datastore: Datastore01
+vcenter_folder: Kubernetes
+vcenter_network: Kubernetes-Network
+vm_template: ubuntu-24-template

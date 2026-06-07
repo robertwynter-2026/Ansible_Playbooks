@@ -1,0 +1,13 @@
+---
+- name: Create vSphere Port Groups
+  community.vmware.vmware_portgroup:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+
+    switch: "{{ vsphere_switch }}"
+    portgroup: "{{ item.name }}"
+    vlan_id: "{{ item.vlan_id }}"
+    state: present
+  loop: "{{ networks }}"

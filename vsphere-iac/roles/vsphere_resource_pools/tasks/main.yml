@@ -1,0 +1,16 @@
+---
+- name: Create Resource Pools
+  community.vmware.vmware_resource_pool:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+
+    datacenter: "{{ vcenter_datacenter }}"
+    cluster: "{{ vcenter_cluster }}"
+    resource_pool: "{{ item.name }}"
+    state: present
+  loop:
+    - { name: "Infrastructure" }
+    - { name: "Kubernetes-ControlPlane" }
+    - { name: "Kubernetes-Workers" }

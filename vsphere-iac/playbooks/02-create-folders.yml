@@ -1,0 +1,6 @@
+- name: Create VM Folders
+  hosts: localhost
+  gather_facts: false
+
+  roles:
+    - vsphere_folders

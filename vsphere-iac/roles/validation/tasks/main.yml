@@ -1,0 +1,16 @@
+---
+- name: Check VM exists in vCenter
+  community.vmware.vmware_guest_info:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: false
+
+    name: "{{ item.name }}"
+  loop: "{{ expanded_vms }}"
+  register: vm_info
+
+- name: Ensure VM is powered on
+  debug:
+    msg: "{{ item.instance.hw_power_status }}"
+  loop: "{{ vm_info.results }}"
