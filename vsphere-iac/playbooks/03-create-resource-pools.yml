@@ -1,6 +1,0 @@
-- name: Create Resource Pools
-  hosts: localhost
-  gather_facts: false
-
-  roles:
-    - vsphere_resource_pools

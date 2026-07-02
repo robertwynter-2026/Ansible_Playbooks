@@ -1,6 +1,0 @@
-- name: Validate VM Provisioning
-  hosts: localhost
-  gather_facts: false
-
-  roles:
-    - validation

@@ -1,6 +1,0 @@
-- name: Create vSphere Networks
-  hosts: localhost
-  gather_facts: false
-
-  roles:
-    - vsphere_network
